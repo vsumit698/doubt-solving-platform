@@ -2,7 +2,7 @@ const passport = require('passport');
 const jwtStrategy = require('passport-jwt').Strategy;
 
 const extractJWT = require('passport-jwt').ExtractJwt;
-const doctorModel = require('../models/studentModel');
+const studentModel = require('../models/studentModel');
 
 var opts = {
     jwtFromRequest : extractJWT.fromAuthHeaderAsBearerToken(),
@@ -11,7 +11,7 @@ var opts = {
 
 passport.use(new jwtStrategy(opts,function(JWTpayload,done){
     console.log('querying db to find doctor');
-    doctorModel.findById(JWTpayload._id,function(error,doctor){
+    studentModel.findById(JWTpayload._id,function(error,doctor){
         if(error){
             console.log("error found while finding doctor at JWT",error);
         }
