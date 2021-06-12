@@ -1,0 +1,31 @@
+Problem Statement: One of the core USP of Coding Ninjas learning experience is the Doubt Resolution process. We have a pool of Teaching Assistants who address doubts raised by the students and are available at different time slots throughout the day.
+
+To have a smooth resolution experience our current system allows only one TA to take a particular doubt at a time from one student.
+
+Once the TA accepts a doubt they can view the detailed description of the doubt. After understanding, they can provide the resolution steps/ or answer the question as they see fit and mark the doubt as resolved.
+
+Although our TAs are pre evaluated to be able to handle all the doubts that a student can possibly ask, we still have an option for them to escalate a doubt, in case they come across something they are not equipped to handle.
+
+
+Some of the features of this system are: 
+
+*Students can raise doubts. Each doubt has a title and description.
+
+*Students can add comments on the doubts.
+
+*Students can see all the doubts raised by them or other users on the home page. Each doubt has a card  with doubt details as shown in the wireframe.
+
+*Teaching Assistants (TAs) can see all the unresolved doubts that are not being resolved by other TAs. They can accept one of these doubts at a time and start solving that doubt.
+
+*After accepting a doubt, they go to a doubt resolution page which shows details of that doubt. They can resolve this doubt by adding an answer or if they are unable to solve it they can escalate the doubt so that some other TA can solve it. After resolving or escalating, TA goes back to the list page to accept new doubts.
+
+*Teachers should be able to see a dashboard with the following stats of the system.
+   *Doubts Asked: Total no. of doubts in the system till now.
+   *Doubts Resolved: Total no. of resolved doubts
+   *Doubts Escalated: Total no. of doubts that were escalated.
+   *Avg. Doubt Resolution Time: Doubt Resolution time is basically the time at which doubt was resolved-time at which doubt was created. Calculate avg of Doubt Resolution time for all the resolved doubts.
+   * TA Report: A list of all the TAs in the system. Each row shows stats for that TA. The stats are:	
+        *Doubt accepted: Total no of times doubt accepted
+        *Doubt resolved: Total no of doubts resolved
+        *Doubt escalated: Total no of times doubt accepted
+        *Avg. Activity Time: Avg of (Time at which doubt resolved - Time at which doubt accepted by TA)
