@@ -25,6 +25,10 @@ const taSchema = new mongoose.Schema({
     doubt_escalated_count : {
         type : Number,
         default : 0
+    },
+    avg_doubt_activity_time : {
+        type : Number,
+        default : 0
     }
 });
 

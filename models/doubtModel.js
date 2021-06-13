@@ -10,12 +10,11 @@ const doubtSchema = new mongoose.Schema({
         required : true
     },
     created_timestamp : {                          
-        type : String,                          
+        type : Number,                          
         required : true
     },
     student_id : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'studentModel',
+        type : String,
         required : true
     },
     comments : {
@@ -23,16 +22,16 @@ const doubtSchema = new mongoose.Schema({
         default : []
     },
     recent_ta_id : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'taModel'
+        type : String,
+        default : ''
     },
     recent_ta_accept_timestamp :{
-        type : String,
-        default : ''
+        type : Number,
+        default : 0
     },
     resolve_timestamp:{
-        type : String,
-        default : ''
+        type : Number,
+        default : 0
     },
     escalate_count : {
         type : Number,
