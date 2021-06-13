@@ -1,23 +1,32 @@
-# covid19-API-with-UNIT-TESTING-
-An API for the doctors of a Hospital which has been allocated by the govt for testing and quarantine + well being of COVID-19 patients
+# Doubt-Solving-API
 
-Installation Guide :
+Required API's for supporting soubt solving platform
 
-1.Open cmd in project folder & run npm install
+## APIs Guide :
+### Users API's
 
-2.Start server by "node server.js" OR "nodemon"
+POST "/doubt-solving/api/v1/user/register" → For registration of Users
 
-APIs Guide :
+  * request body fields  : name, email_id, password, user_type (only allowed -> student, teacher, ta)
 
-POST "/doctors/register" → For registration of Doctors, Fields required : Name, Username & Password
+POST "/doubt-solving/api/v1/user/login" → For login of Users
 
-POST "/doctors/login" → For Login of Doctors, Fields required : Username & Password
+  * request body fields  : email_id, password, user_type (only allowed -> student, teacher, ta)
 
-POST "/doctors/register_patient" → For Registration of Patients, Fields Required : PHONE NUMBER, Need Token of Logged in Doctor in headers of request
+GET "/doubt-solving/api/v1/user/user-list" → For fetching Users list (secured by JWT-Authentication)
+
+  * request query params  : user_type (only allowed -> student, teacher, ta)
+### Doubt API's
 
 POST "/patients/:id/create_report" → For Creating reports, Fields Required : status, Need Token of Logged in Doctor in headers of request
 
 GET "/patients/:id/all_reports" → For Fetching reports of specific patient, Reports are ordered by oldest to latest.
 
 GET "/reports/:status" → For fetching all the reports of all the patients filtered by a specific status
+
+## Installation Guide :
+
+1.Open cmd in project folder & run npm install
+
+2.Start server by "npm start"
 

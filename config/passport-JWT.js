@@ -2,21 +2,29 @@ const passport = require('passport');
 const jwtStrategy = require('passport-jwt').Strategy;
 
 const extractJWT = require('passport-jwt').ExtractJwt;
-const studentModel = require('../models/studentModel');
+const {studentModel,taModel,teacherModel} = require('../models/exportModels');
 
-var opts = {
+var optionsObj = {
     jwtFromRequest : extractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : process.env.jwt_key
 };
 
-passport.use(new jwtStrategy(opts,function(JWTpayload,done){
-    console.log('querying db to find doctor');
-    studentModel.findById(JWTpayload._id,function(error,doctor){
+passport.use(new jwtStrategy(optionsObj,function(JWTpayload,done){
+    let userTypeModel = studentModel;
+    if(JWTpayload.user_type === 'ta'){
+        userTypeModel = taModel;
+    }else if(JWTpayload.user_type === 'teacher'){
+        userTypeModel = teacherModel;
+    }
+
+    userTypeModel.findById(JWTpayload._id,function(error,userDoc){
         if(error){
-            console.log("error found while finding doctor at JWT",error);
+            console.log("error found while finding userDoc at JWT authentication",error);
         }
-        if(doctor){
-            return done(null,doctor);
+        if(userDoc){
+            let userObj = userDoc.toJSON();
+            userObj.user_type = JWTpayload.user_type;
+            return done(null,userObj);
         }
         return done(null,false);
     });
