@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 
 const validUserTypes = new Set(['student','ta','teacher']);
-const expireTime = 60*60*1000;
+const expireTime = 60*60;
 
 module.exports.handleUserRegistration = async function(req,res){
     try {

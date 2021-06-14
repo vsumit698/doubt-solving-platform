@@ -76,7 +76,7 @@ module.exports.addCommentHandler = async function(req,res){
                 message : `Doubt not exist`
             });
         }
-        doubtDoc.comments.push({user_id : req.params.studentId, content : req.body.content});
+        doubtDoc.comments.push({user_id : req.params.studentId, content : req.body.content, user_type : 'student', user_name : req.user.name});
         doubtDoc.save();
         return res.status(200).json({
             status : 'success',
@@ -156,6 +156,7 @@ module.exports.taActionHandler = async function(req,res){
             // ta resolve action is valid
             taDoc.doubt_resolve_count += 1;
             doubtDoc.resolve_timestamp = moment.tz(timeZone).unix();
+            doubtDoc.comments.push({user_id : req.params.taId, content : req.body.resolve_content, user_type : 'ta', user_name : taDoc.name});
 
             let taAvgDoubtActivityTime = taDoc.avg_doubt_activity_time;
             let currDoubtActivityTime = doubtDoc.resolve_timestamp - doubtDoc.recent_ta_accept_timestamp;
