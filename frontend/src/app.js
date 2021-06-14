@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RegisterForm from './js/components/register.js';
 import Users from './js/components/users.js';
-import './styles/app.less';
+import './styles/app.css';
 import {Route,NavLink,Switch} from 'react-router-dom';
 
 class App extends Component {
