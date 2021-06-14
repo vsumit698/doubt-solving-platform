@@ -1,0 +1,47 @@
+.sindle-doubt-container {
+  width : 100%;
+  position: relative;
+  /* margin: 20px; */
+  /* border : 1px solid black; */
+}
+.sindle-doubt-container .resolve-status{
+  padding: 3px 15px;
+  font-size: 15px;
+}
+.sindle-doubt-container .doubt-wrapper{
+  width : 80%;
+  margin: 20px auto;
+  background-color: rgb(238, 238, 238);
+  border : 6px solid lightgray ;
+}
+.sindle-doubt-container .doubt-title{
+  font-size: 20px;
+  margin: 5px 0;
+  font-weight: 600;
+}
+.sindle-doubt-container .doubt-description{
+  font-weight: 400;
+}
+.sindle-doubt-container .doubt-creator-wrapper{
+  height : 25px;
+  position: relative;
+  /* border : 1px solid purple ; */
+}
+.sindle-doubt-container .doubt-creator{
+  position: absolute;
+  right: 0px;
+}
+.sindle-doubt-container .comments-container{
+  /* border : 1px solid red ; */
+}
+.sindle-doubt-container .comments-block{
+  /* border : 1px solid green ; */
+  margin : 10px 0;
+  background-color: lightyellow;
+}
+.sindle-doubt-container .comment-form{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border : 1px solid blue ; */
+}

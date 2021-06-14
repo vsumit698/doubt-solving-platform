@@ -185,9 +185,9 @@ class App extends Component {
                       
                   <Route  path='/login' exact render={()=>{return <LoginUser handleUserLogin={(value)=>{this.handleUserLogin(value.user)}}/>}}></Route>
 
-                  <Route  path='/student/home' exact render={()=>{return <StudentDoubtList />}}></Route>
+                  <Route  path='/student/home' exact render={()=>{return <StudentDoubtList handleUserLogout={()=>{this.handleUserLogout();}}/>}}></Route>
 
-                  <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise user_id={this.state.user_id} />}}></Route>
+                  <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise user_id={this.state.user_id} handleUserLogout={()=>{this.handleUserLogout();}} />}}></Route>
 
                   <Route  path='/ta/home' exact render={()=>{return <TaDoubtList />}}></Route>
 

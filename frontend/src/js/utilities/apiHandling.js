@@ -50,7 +50,29 @@ const loginUser = async(userObj)=>{
 }
 
 
-const getDoubtList = ()=>{
+const getDoubtList = async()=>{
+  try{
+
+    let response = await fetch(`${apiBasePath}/doubt-solving/api/v1/doubt/doubts-list`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : `bearer ${localStorage.getItem('dsp_access_token')}`
+      }
+    });
+    if(response.status === 401){
+      // unauthorized request
+      return {
+        status : 'unauthorized'
+      };
+    }
+    let responseJson = await response.json();
+    return responseJson;
+
+  }catch(error){
+    throw new Error(error);
+  }
 
 }
 
@@ -69,6 +91,13 @@ const raiseDoubt = async (doubtObj)=>{
         description : doubtObj.description
       })
     });
+
+    if(response.status === 401){
+      // unauthorized request
+      return {
+        status : 'unauthorized'
+      };
+    }
 
     let responseJson = await response.json();
     return responseJson;

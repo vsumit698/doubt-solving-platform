@@ -4,6 +4,10 @@
 .app .app-header{
     font-size: 20px;
 }
+.app .component-header{
+    font-size: 18px;
+    font-weight: bold;
+}
 .app .navigation ul{
     list-style: none;
     /* border: 2px solid black; */
@@ -13,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    background-color: lightgray;
 }
 .app .navigation li{
     display: inline-block;
@@ -31,4 +36,7 @@
     width:600px;
     margin : 20px auto;
     /* border: 1px solid black; */
+}
+.light-font-weight{
+    font-weight: 300;
 }

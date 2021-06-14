@@ -1,0 +1,11 @@
+.student-doubt-list{
+  width : 80%;
+  margin: 20px auto;
+  /* border: 1px solid black; */
+}
+
+.student-doubt-list .local-header{
+  width: 80%;
+  margin: 10px auto;
+  /* border: 1px solid black; */
+}

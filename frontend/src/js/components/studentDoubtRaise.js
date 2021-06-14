@@ -24,6 +24,11 @@ class StudentDoubtRaise extends React.Component{
         this.setState({doubt_creation_status : true});
         raiseDoubt(doubtObj).then((response)=>{
 
+            if(response.status === 'unauthorized'){
+                this.props.handleUserLogout();
+                return;
+            }
+
             if(response.status === 'success'){
 
                 notification.success({message : response.message});
@@ -51,7 +56,7 @@ class StudentDoubtRaise extends React.Component{
         return (
             <div className="raise-doubt-container">
                 <div className="raise-doubt-wrapper">
-                    <div className="doubt-header">Raise Doubt</div>
+                    <div className="component-header">Raise Doubt</div>
                     <div className="raise-doubt-form">
                         <div>Title</div>
                         <Input onChange={(event)=>{this.updateValues('title',event.target.value)}} value={this.state.title}/>
