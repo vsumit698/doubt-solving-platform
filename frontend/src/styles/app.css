@@ -1,7 +1,18 @@
+.test{
+    border: 1px solid black;
+}
+.app .app-header{
+    font-size: 20px;
+}
 .app .navigation ul{
     list-style: none;
     /* border: 2px solid black; */
     text-align: center;
+}
+.app .navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .app .navigation li{
     display: inline-block;
@@ -14,4 +25,10 @@
 }
 .app .navigation a:hover{
     color: aqua;
+}
+
+.login-form, .register-form{
+    width:600px;
+    margin : 20px auto;
+    /* border: 1px solid black; */
 }
