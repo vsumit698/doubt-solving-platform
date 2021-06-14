@@ -44,10 +44,13 @@ class App extends Component {
         if(!userType) userType = '';
         let hasAccessToken = localStorage.getItem('dsp_access_token');
         hasAccessToken = hasAccessToken ? true : false;
+        let userId = localStorage.getItem('dsp_user_id');
+        if(!userId) userId = '';
 
         this.state = {
             user_type : userType,
-            has_access_token : hasAccessToken
+            has_access_token : hasAccessToken,
+            user_id : userId
         }
     }
 
@@ -102,6 +105,7 @@ class App extends Component {
                 let userDetails = response.user_details;
                 localStorage.setItem('dsp_user_type',userDetails.user_type);
                 localStorage.setItem('dsp_access_token',response.access_token);
+                localStorage.setItem('dsp_user_id', userDetails._id);
 
                 this.setState({
                     email_id : userDetails.email_id,
@@ -133,6 +137,7 @@ class App extends Component {
     handleUserLogout(){
         localStorage.setItem('dsp_user_type', '');
         localStorage.setItem('dsp_access_token', '');
+        localStorage.setItem('dsp_user_id', '');
 
         this.setState({
             email_id : '',
@@ -182,7 +187,7 @@ class App extends Component {
 
                   <Route  path='/student/home' exact render={()=>{return <StudentDoubtList />}}></Route>
 
-                  <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise />}}></Route>
+                  <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise user_id={this.state.user_id} />}}></Route>
 
                   <Route  path='/ta/home' exact render={()=>{return <TaDoubtList />}}></Route>
 

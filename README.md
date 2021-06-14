@@ -28,6 +28,19 @@ Required API's for supporting soubt solving platform
     2. POST "/doubt-solving/api/v1/user/login" → For login of Users
 
       * request body fields  : email_id, password, user_type (only allowed -> student, teacher, ta)
+      * Sample Response -> 
+          {
+            "status": "success",
+            "message": "Login successfully",
+            "access_token": "sample_token",
+            "user_details": {
+              "_id": "60c784329fe5c62e34610058",
+              "name": "sumit verma",
+              "email_id": "vsumit698@gmail.com",
+              "__v": 0,
+              "user_type": "student"
+            }
+          }
 
     3. GET "/doubt-solving/api/v1/user/user-list" → For fetching Users list (secured by JWT-Authentication)
 
@@ -38,6 +51,24 @@ Required API's for supporting soubt solving platform
 
       * request body fields  : title, description
       * This route is accessible to user type -> student
+      * Sample Response 
+        {
+          "status": "success",
+          "message": "Doubt Created successfully",
+          "doubt_detail": {
+              "comments": [],
+              "recent_ta_id": "",
+              "recent_ta_accept_timestamp": 0,
+              "resolve_timestamp": 0,
+              "escalate_count": 0,
+              "_id": "60c7a228e675ae3b2c13be7a",
+              "title": "Doubt Heading",
+              "description": "How is doubt secription",
+              "created_timestamp": 1623695912,
+              "student_id": "60c784329fe5c62e34610058",
+              "__v": 0
+          }
+        }
 
     2. POST "/doubt-solving/api/v1/doubt/:doubtId/add-comment/:studentId" → For adding comment on Doubt (secured by JWT-Authentication)
       * request body fields  : content

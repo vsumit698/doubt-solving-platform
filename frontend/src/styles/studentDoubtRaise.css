@@ -1,0 +1,29 @@
+.raise-doubt-container{
+  margin: 25px auto;
+  /* border : 2px solid black; */
+}
+
+.raise-doubt-container .raise-doubt-wrapper{
+  width: 60%;
+  margin: 25px auto;
+  padding: 20px;
+  background-color: lightgray;
+  border : 2px solid lightgray;
+}
+.raise-doubt-container .doubt-header{
+  font-size: 18px;
+}
+.raise-doubt-container .raise-doubt-form{
+  width: 100%;
+  /* border : 2px solid red; */
+}
+.raise-doubt-container .ask-doubt-btn-wrapper{
+  position: relative;
+  height: 50px;
+  /* border : 2px solid red; */
+}
+.raise-doubt-container .ask-doubt-btn{
+  margin: 20px 0;
+  position: absolute;
+  right: 40px;
+}

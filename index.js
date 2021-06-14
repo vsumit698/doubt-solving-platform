@@ -4,10 +4,10 @@ const dotenv = require('dotenv');
 dotenv.config(); // for loading .env file keys in to process.env
 
 const db = require('./config/mongoose');
+
 const passport = require('passport');
 const passportJWT = require('./config/passport-JWT');
 const bodyParser = require('body-parser');
-
 
 //parse application/json and look for raw text                                        
 app.use(bodyParser.json());                                     
@@ -23,10 +23,11 @@ app.use(passport.session());
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+
 
 app.use('/',require('./routes/doubtSolving'));
  

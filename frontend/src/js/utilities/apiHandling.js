@@ -54,7 +54,28 @@ const getDoubtList = ()=>{
 
 }
 
-const raiseDoubt = ()=>{
+const raiseDoubt = async (doubtObj)=>{
+  try{
+
+    let response = await fetch(`${apiBasePath}/doubt-solving/api/v1/doubt/create-doubt/${doubtObj.user_id}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : `bearer ${localStorage.getItem('dsp_access_token')}`
+      },
+      body: JSON.stringify({
+        title : doubtObj.title,
+        description : doubtObj.description
+      })
+    });
+
+    let responseJson = await response.json();
+    return responseJson;
+
+  }catch(error){
+    throw new Error(error);
+  }
 
 };
 
