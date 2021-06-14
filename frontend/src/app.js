@@ -10,7 +10,7 @@ import TeacherDashboard from './js/components/teacherDashboard.js';
 import PathNotFound from './js/components/pathNotFound';
 
 // importing libraries
-import {} from './js/utilities/apiHandling.js'
+import {registerUser,loginUser} from './js/utilities/apiHandling.js'
 import {Route,NavLink,Switch, withRouter} from 'react-router-dom';
 import { Button, notification} from 'antd';
 
@@ -63,7 +63,7 @@ class App extends Component {
                 this.props.history.push('/teacher/home');
             }else{
                 console.log(`user type ${this.state.user_type} is not valid`);
-                notification.warn({message : `user type ${this.state.user_type} is not valid`});
+                // notification.warn({message : `user type ${this.state.user_type} is not valid`});
             }
 
         }else{
@@ -73,20 +73,82 @@ class App extends Component {
     }
 
     handleUserSignup(newUser){
-      console.log('new user ->',newUser);
+        console.log('new user ->',newUser);
+        registerUser(newUser).then((response)=>{
+
+            if(response.status === 'success'){
+
+                notification.success({message : response.message});
+                this.props.history.push('/login');
+
+            }else{
+
+                notification.warn({message : response.message});
+
+            }
+
+        }).catch((err)=>{
+            notification.error({message : err});
+        });
     }
 
     handleUserLogin(user){
         console.log('user ->',user);
+        loginUser(user).then((response)=>{
+
+            if(response.status === 'success'){
+
+                notification.success({message : response.message});
+                let userDetails = response.user_details;
+                localStorage.setItem('dsp_user_type',userDetails.user_type);
+                localStorage.setItem('dsp_access_token',response.access_token);
+
+                this.setState({
+                    email_id : userDetails.email_id,
+                    user_id : userDetails._id,
+                    user_type : userDetails.user_type,
+                    name : userDetails.name,
+                    has_access_token : response.hasOwnProperty('access_token')
+                });
+        
+                let appPath = '/login';
+                if(userDetails.user_type === 'student') appPath = '/student/home';
+                else if(userDetails.user_type === 'ta') appPath = '/ta/home';
+                else if(userDetails.user_type === 'teacher') appPath = '/teacher/home';
+
+                this.props.history.push(appPath);
+
+            }else{
+
+                notification.warn({message : response.message});
+
+            }
+
+        }).catch((err)=>{
+            notification.error({message : err});
+        });
     }
     
 
     handleUserLogout(){
+        localStorage.setItem('dsp_user_type', '');
+        localStorage.setItem('dsp_access_token', '');
 
+        this.setState({
+            email_id : '',
+            user_id : '',
+            user_type : '',
+            name : '',
+            has_access_token : false
+        });
+
+        this.props.history.push('/login');
+        notification.success({message : 'Logout successfully'});
     }
 
     render () {
-        let logoutButton = <Button className="logout-btn" type="primary">Logout</Button>;
+        let logoutButton = <Button className="logout-btn" type="primary" onClick={()=>{this.handleUserLogout();}}>Logout</Button>;
+
         if(!this.state.has_access_token) logoutButton = null;
         return (
             <div className="app">

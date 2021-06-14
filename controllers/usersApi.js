@@ -42,6 +42,7 @@ module.exports.handleUserRegistration = async function(req,res){
         userDoc = await userTypeModel.create({...req.body,password : encryptedPassword});
 
         let userObj = userDoc.toJSON();
+        delete userObj.password
         userObj.user_type = req.body.user_type;
 
         res.status(200).json({
@@ -92,11 +93,13 @@ module.exports.handleUserLogin = async function(req,res){
             });
         }
         let userObj = userDoc.toJSON();
+        delete userObj.password
         userObj.user_type = req.body.user_type;
         res.status(200).json({
             status : "success",
             message : "Login successfully",
-            access_token : jsonwebtoken.sign(userObj,process.env.jwt_key,{expiresIn: expireTime})
+            access_token : jsonwebtoken.sign(userObj,process.env.jwt_key,{expiresIn: expireTime}),
+            user_details : userObj,
         });
 
     } catch (error) {

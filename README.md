@@ -8,6 +8,22 @@ Required API's for supporting soubt solving platform
     1. POST "/doubt-solving/api/v1/user/register" → For registration of Users
 
       * request body fields  : name, email_id, password, user_type (only allowed -> student, teacher, ta)
+      * Sample Response ->
+          {
+            "status": "success",
+            "user_details": {
+                "doubt_accept_count": 0,
+                "doubt_resolve_count": 0,
+                "doubt_escalated_count": 0,
+                "avg_doubt_activity_time": 0,
+                "_id": "60c781df875c08472438d0ea",
+                "name": "sumit",
+                "email_id": "vsumit698@gmail.com",
+                "__v": 0,
+                "user_type": "ta"
+            },
+            "message": "Successfully Registered"
+          }
 
     2. POST "/doubt-solving/api/v1/user/login" → For login of Users
 

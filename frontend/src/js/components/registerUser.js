@@ -26,7 +26,7 @@ var RegisterUser = (props) => {
         <Input style={{color : "green"}}/>
       </Form.Item>
 
-      <Form.Item name={['user', 'email']} label="Email"rules={[ {type: 'email',required:true}]}>
+      <Form.Item name={['user', 'email_id']} label="Email"rules={[ {type: 'email',required:true}]}>
         <Input />
       </Form.Item>
       

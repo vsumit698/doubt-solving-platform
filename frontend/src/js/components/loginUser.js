@@ -22,7 +22,7 @@ var LoginUser = (props) => {
     
     <Form className='login-form' {...layout}  name="nest-messages" onFinish={props.handleUserLogin} validateMessages={validateMessages}>
 
-      <Form.Item name={['user', 'email']} label="Email"rules={[ {type: 'email',required:true}]}>
+      <Form.Item name={['user', 'email_id']} label="Email"rules={[ {type: 'email',required:true}]}>
         <Input />
       </Form.Item>
       
