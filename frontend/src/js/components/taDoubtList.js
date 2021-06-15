@@ -62,6 +62,9 @@ class TaDoubtList extends React.Component{
 
     doubtAcceptHandler(doubtListId){
         console.log(doubtListId);
+        if(this.props.currDoubt){
+            notification.warn({message : 'TA can only Select One Doubt At a Time'});
+        }
         this.setDoubtAcceptStatus(doubtListId,true);
         taActionOnDoubt(this.state.unresolve_doubt_list[doubtListId]._id,this.props.userId,'accept').then((response)=>{
 
@@ -117,7 +120,7 @@ class TaDoubtList extends React.Component{
                 unresolveDoubtListElements.push(
                     <div className="ta-doubt" key={doubtObj._id}>
                         <div>{doubtObj.title}</div>
-                        <Button type="dashed" className="accept-btn" onClick={()=>{this.doubtAcceptHandler(currIndex);}} loading={doubtObj.doubt_accept_status}>Accept</Button>
+                        <Button type="dashed" disabled={this.props.currDoubt?true:false} className="accept-btn" onClick={()=>{this.doubtAcceptHandler(currIndex);}} loading={doubtObj.doubt_accept_status}>Accept</Button>
                     </div>
                 );
                 index++;

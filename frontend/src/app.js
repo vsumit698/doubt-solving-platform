@@ -55,7 +55,7 @@ class App extends Component {
     }
 
     componentDidMount(){
-
+    
         if(this.state.user_type && this.state.has_access_token){
             
             if(this.state.user_type==='student'){
@@ -156,6 +156,10 @@ class App extends Component {
         this.props.history.push('/ta/resolve-doubt');
     }
 
+    removeCurrDoubt(){
+
+    }
+
     render () {
         let logoutButton = <Button className="logout-btn" type="primary" onClick={()=>{this.handleUserLogout();}}>Logout</Button>;
 
@@ -196,7 +200,7 @@ class App extends Component {
 
                   <Route  path='/ta/home' exact render={()=>{return <TaDoubtList userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} loadCurrDoubt={(doubtDetail)=>{this.loadCurrDoubt(doubtDetail);}} />}}></Route>
 
-                  <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt />}}></Route>
+                  <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} removeCurrDoubt={(doubtDetail)=>{this.removeCurrDoubt(doubtDetail);}} />}}></Route>
 
                   <Route  path='/teacher/home' exact render={()=>{return <TeacherDashboard />}}></Route>
                   

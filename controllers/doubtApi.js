@@ -214,7 +214,7 @@ module.exports.taActionHandler = async function(req,res){
         }
         let taDoc = await taModel.findById(req.params.taId);
         
-        if(req.params.taAction === 'accept' && doubtDoc.recent_ta_id==='' && doubtDoc.recent_ta_accept_timestamp===0 && doubtDoc.resolve_timestamp===0){
+        if(req.params.taAction === 'accept' && (doubtDoc.recent_ta_id==='' || doubtDoc.recent_ta_id===req.params.taId) && doubtDoc.resolve_timestamp===0){
             // ta accept action is valid
             taDoc.doubt_accept_count += 1;
             doubtDoc.recent_ta_id = req.params.taId;
