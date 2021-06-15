@@ -1,0 +1,32 @@
+.ta-doubt-list-container{
+  width : 80%;
+  margin: 20px auto;
+  /* border: 1px solid black; */
+}
+.ta-doubt-list-container .header-wrapper{
+  width: 100%;
+  padding: 20px;
+}
+.ta-doubt-list-container .local-header{
+ 
+  /* border: 1px solid red; */
+}
+
+.ta-doubt-list-container .ta-doubt-list-wrapper{
+  padding: 10px;
+  /* border: 1px solid black; */
+}
+
+.ta-doubt-list-container .ta-doubt{
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid rgb(238, 238, 238);
+  background-color: rgb(243, 243, 243);
+}
+
+.ta-doubt-list-container .accept-btn{
+  color: purple;
+}

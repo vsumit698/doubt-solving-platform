@@ -3,7 +3,7 @@ import React from 'react';
 import DoubtComponent from './doubtComponent.js';
 
 // importing libraries
-import {getDoubtList, addCommentOnDoubt} from '../utilities/apiHandling.js'
+import {getDoubtList, addCommentOnDoubt} from '../utilities/apiHandling.js';
 import {LoadingOutlined} from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 

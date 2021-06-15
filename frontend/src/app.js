@@ -151,6 +151,11 @@ class App extends Component {
         notification.success({message : 'Logout successfully'});
     }
 
+    loadCurrDoubt(doubtDetail){
+        this.setState({curr_doubt : doubtDetail});
+        this.props.history.push('/ta/resolve-doubt');
+    }
+
     render () {
         let logoutButton = <Button className="logout-btn" type="primary" onClick={()=>{this.handleUserLogout();}}>Logout</Button>;
 
@@ -189,7 +194,7 @@ class App extends Component {
 
                   <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise userId={this.state.user_id} handleUserLogout={()=>{this.handleUserLogout();}} />}}></Route>
 
-                  <Route  path='/ta/home' exact render={()=>{return <TaDoubtList />}}></Route>
+                  <Route  path='/ta/home' exact render={()=>{return <TaDoubtList userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} loadCurrDoubt={(doubtDetail)=>{this.loadCurrDoubt(doubtDetail);}} />}}></Route>
 
                   <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt />}}></Route>
 

@@ -138,6 +138,39 @@ Required API's for supporting soubt solving platform
       * This route is accessible to user type -> ta (teaching assistant)
       * allowed ta-action are ('accept','resolve','escalate')
       * request body fields  : resolve_content (if ta_action is 'resolve')
+      * Sample Response
+        {
+          "status": "success",
+          "message": "TA action accept performed on Doubt",
+          "doubt_detail": {
+            "comments": [
+              {
+                "user_id": "60c784329fe5c62e34610058",
+                "content": "whoare comment",
+                "user_type": "student",
+                "user_name": "sumit verma"
+              },
+              {
+                "user_id": "60c784329fe5c62e34610058",
+                "content": "greta question",
+                "user_type": "student",
+                "user_name": "sumit verma"
+              }
+            ],
+            "recent_ta_id": "60c8e50c417b6b4bb0d0c6a6",
+            "recent_ta_accept_timestamp": 1623785272,
+            "resolve_timestamp": 0,
+            "escalate_count": 0,
+            "_id": "60c7ca507119f735b81aaf96",
+            "title": "hello man",
+            "description": "man is hello",
+            "created_timestamp": 1623706192,
+            "student_id": "60c784329fe5c62e34610058",
+            "__v": 2,
+            "asked_student_name": "sumit verma"
+          }
+        } 
+
     5. GET "/doubt-solving/api/v1/doubt/teacher-dashboard" → For getting Teacher dashboard summary (secured by JWT-Authentication)
 
       * This route is accessible to user type -> teacher
