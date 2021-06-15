@@ -20,7 +20,7 @@ class StudentDoubtRaise extends React.Component{
     }
 
     raiseDoubtHandler(){
-        let doubtObj = {...this.state,user_id : this.props.user_id};
+        let doubtObj = {...this.state,user_id : this.props.userId};
         this.setState({doubt_creation_status : true});
         raiseDoubt(doubtObj).then((response)=>{
 

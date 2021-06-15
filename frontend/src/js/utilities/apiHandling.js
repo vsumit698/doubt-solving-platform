@@ -108,8 +108,34 @@ const raiseDoubt = async (doubtObj)=>{
 
 };
 
-const addCommentOnDoubt = ()=>{
+const addCommentOnDoubt = async(doubtId,userId,messageContent)=>{
+  try{
+    
+    let response = await fetch(`${apiBasePath}/doubt-solving/api/v1/doubt/${doubtId}/add-comment/${userId}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : `bearer ${localStorage.getItem('dsp_access_token')}`
+      },
+      body: JSON.stringify({
+        content : messageContent
+      })
+    });
 
+    if(response.status === 401){
+      // unauthorized request
+      return {
+        status : 'unauthorized'
+      };
+    }
+
+    let responseJson = await response.json();
+    return responseJson;
+
+  }catch(error){
+    throw new Error(error);
+  }
 };
 
 export {registerUser, loginUser, getDoubtList, raiseDoubt, addCommentOnDoubt};

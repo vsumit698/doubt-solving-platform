@@ -1,6 +1,6 @@
 // importing components
 import React from 'react';
-import DoubtContainer from '../containers/doubtContainer';
+import DoubtComponent from './doubtComponent.js';
 
 // importing libraries
 import {getDoubtList, addCommentOnDoubt} from '../utilities/apiHandling.js'
@@ -44,7 +44,56 @@ class StudentDoubtList extends React.Component{
         });
     }
 
-    addCommentHandler(){
+    setCommentCreationStatus(doubtListId,status){
+        // setting comment_creation status to true
+        this.setState((prevState)=>{
+            let newDoubtList = [...prevState.doubt_list];
+            newDoubtList[doubtListId] = {...newDoubtList[doubtListId]};
+            newDoubtList[doubtListId].comment_creation_status = status;
+            return {doubt_list : newDoubtList};
+        });
+        
+    }
+
+    addCommentHandler(doubtListId, messageContent){
+        
+        this.setCommentCreationStatus(doubtListId,true);
+        addCommentOnDoubt(this.state.doubt_list[doubtListId]._id,this.props.userId,messageContent).then((response)=>{
+
+            if(response.status === 'unauthorized'){
+                this.props.handleUserLogout();
+                return;
+            }
+
+            if(response.status === 'success'){
+
+                notification.success({message : response.message});
+                this.setState((prevState)=>{
+                    let newDoubtList = [...prevState.doubt_list];
+                    let doubtId = 0;
+                    for(let doubtObj of newDoubtList){
+                        if(doubtObj._id === response.doubt_detail._id){
+
+                            newDoubtList[doubtId] = response.doubt_detail;
+                            newDoubtList[doubtId].comment_creation_status = false;
+                            return {doubt_list : newDoubtList};
+
+                        }
+                        doubtId++;
+                    }
+                });
+
+            }else{
+
+                notification.warn({message : response.message});
+                this.setCommentCreationStatus(doubtListId,false);
+
+            }
+            
+        }).catch((err)=>{
+            notification.error({message : err});
+            this.setCommentCreationStatus(doubtListId,false);
+        });
 
     }
 
@@ -63,14 +112,17 @@ class StudentDoubtList extends React.Component{
                 </div>
                 {(()=>{
                     if(this.state.doubt_list){
-                        let doubtElementsArray = [];
+                        let doubtElementsArray = [],doubtListId=0;
                         for(let doubtObj of this.state.doubt_list){
+
                             doubtElementsArray.push(
-                                <DoubtContainer key={doubtObj._id} 
+                                <DoubtComponent key={doubtObj._id} 
                                     doubtObj={{...doubtObj}} 
-                                    addCommentHandler={()=>{this.addCommentHandler();}} 
+                                    addCommentHandler={(doubtListId, messageContent)=>{this.addCommentHandler(doubtListId, messageContent);}}
+                                    doubtListId={doubtListId} 
                                 />
                             );
+                            doubtListId++;
                         }
                         return doubtElementsArray;
                     }
