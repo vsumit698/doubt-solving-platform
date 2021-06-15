@@ -37,7 +37,13 @@
 .sindle-doubt-container .comments-block{
   /* border : 1px solid green ; */
   margin : 10px 0;
+  padding: 5px;
   background-color: lightyellow;
+}
+.sindle-doubt-container .resolved-block{
+  /* border : 1px solid green ; */
+  margin : 15px 0;
+  background-color: rgb(185, 255, 183);
 }
 .sindle-doubt-container .comment-form{
   display: flex;

@@ -80,13 +80,11 @@ Required API's for supporting soubt solving platform
           "doubt_detail": {
               "comments": [
                   {
-                      "user_id": "60c59e3aec9eab2e74403bbd",
-                      "content": "Great Question"
-                  },
-                  {
-                      "user_id": "60c59e3aec9eab2e74403bbd",
-                      "content": "Great Question"
-                  }
+                    "user_id": "60c784329fe5c62e34610058",
+                    "content": "Great Question",
+                    "user_type": "student",
+                    "user_name": "sumit verma"
+                  } 
               ],
               "recent_ta_id": "",
               "recent_ta_accept_timestamp": null,
@@ -97,7 +95,9 @@ Required API's for supporting soubt solving platform
               "description": "How is doubt secription",
               "created_timestamp": 1623586528,
               "student_id": "60c59e3aec9eab2e74403bbd",
-              "__v": 1
+              "__v": 1,
+              "asked_student_name": "sumit verma",
+            ``"solved_ta_name" : "ta name"
           }
         }
 
@@ -109,25 +109,26 @@ Required API's for supporting soubt solving platform
           "status": "success",
           "doubt_list": [
             {
-              "comments": [
-                  {
-                      "user_id": "60c59e3aec9eab2e74403bbd",
-                      "content": "This is good doubt"
-                  },
-                  {
-                      "user_id": "60c59e3aec9eab2e74403bbd",
-                      "content": "This is bad doubt"
-                  }
-              ],
-              "recent_ta_accept_timestamp": "",
-              "resolve_timestamp": "",
-              "escalate_count": 0,
-              "_id": "60c5d740a8aed6389c1dcf67",
-              "title": "Doubt Heading",
-              "description": "How is doubt secription",
-              "created_timestamp": "1623577714",
-              "student_id": "60c59e3aec9eab2e74403bbd",
-              "__v": 2
+            "comments": [
+                {
+                    "user_id": "60c784329fe5c62e34610058",
+                    "content": "Great Question",
+                    "user_type": "student",
+                    "user_name": "sumit verma"
+                }
+            ],
+            "recent_ta_id": "",
+            "recent_ta_accept_timestamp": 0,
+            "resolve_timestamp": 0,
+            "escalate_count": 0,
+            "_id": "60c830b60b0c253ac0a3e7b5",
+            "title": "Doubt Heading",
+            "description": "How is doubt secription",
+            "created_timestamp": 1623732406,
+            "student_id": "60c784329fe5c62e34610058",
+            "__v": 4,
+            "asked_student_name": "sumit verma",
+            "solved_ta_name" : "ta name"
             }
           ]
         }

@@ -3,6 +3,69 @@ const validTaActionsSet = new Set(['accept','resolve','escalate']);
 const timeZone = "Asia/Kolkata";
 const moment = require('moment-timezone');
 
+async function getDeliverableDoubts(doubtDocArray){
+    let userIdToUserDetailsObj = {},userDoc;
+    let doubtObjArray = [],doubtObj,askedStudentName,solvedTaName;
+
+    for(let doubtDoc of doubtDocArray){
+        doubtObj = {};
+        doubtObj = doubtDoc.toJSON();
+
+        if(userIdToUserDetailsObj[doubtObj.student_id]){
+            // found user details in userIdToUserDetailsObj
+            askedStudentName = userIdToUserDetailsObj[doubtObj.student_id].name;
+        }else{
+            userIdToUserDetailsObj[doubtObj.student_id] = {};
+            userDoc = await studentModel.findById(doubtObj.student_id);
+            askedStudentName = userDoc.name;
+            userIdToUserDetailsObj[doubtObj.student_id].name = askedStudentName;
+        }
+
+        if(doubtObj.resolve_timestamp){
+
+            if(userIdToUserDetailsObj[doubtObj.recent_ta_id]){
+                // found user details in userIdToUserDetailsObj
+                solvedTaName = userIdToUserDetailsObj[doubtObj.recent_ta_id].name;
+            }else{
+                userIdToUserDetailsObj[doubtObj.recent_ta_id] = {};
+                userDoc = await taModel.findById(doubtObj.recent_ta_id);
+                solvedTaName = userDoc.name;
+                userIdToUserDetailsObj[doubtObj.student_id].name = solvedTaName;
+            }
+        
+        }
+
+        doubtObj.asked_student_name = askedStudentName;
+        doubtObj.solved_ta_name = solvedTaName;
+
+        for(let commentObj of doubtObj.comments){
+            if(userIdToUserDetailsObj[commentObj.user_id]){
+                commentObj.user_name = userIdToUserDetailsObj[commentObj.user_id].name;
+            }else{
+                // user details not found in userIdToUserDetailsObj
+                if(commentObj.user_type === 'student'){
+
+                    userDoc = await studentModel.findById(commentObj.user_id);
+
+                }else if(commentObj.user_type === 'ta'){
+    
+                    userDoc = await taModel.findById(commentObj.user_id);
+
+                }
+
+                if(userDoc){
+                    userIdToUserDetailsObj[commentObj.user_id] = {name : userDoc.name};
+                    commentObj.user_name = userDoc.name;
+                }
+
+            }
+        }
+        console.log('doubt Obj -> ',doubtObj);
+        doubtObjArray.push(doubtObj);
+    }
+    return doubtObjArray;
+}
+
 module.exports.addDoubtHandler = async function(req,res){
     try {
         if(!req.body.title || !req.body.description){
@@ -76,12 +139,15 @@ module.exports.addCommentHandler = async function(req,res){
                 message : `Doubt not exist`
             });
         }
-        doubtDoc.comments.push({user_id : req.params.studentId, content : req.body.content, user_type : 'student', user_name : req.user.name});
+        doubtDoc.comments.push({user_id : req.params.studentId, content : req.body.content, user_type : 'student'});
         doubtDoc.save();
+
+        let doubtObjArray = await getDeliverableDoubts([doubtDoc]);
+
         return res.status(200).json({
             status : 'success',
             message : `Commented successfully on Doubt`,
-            doubt_detail : doubtDoc.toJSON()
+            doubt_detail : doubtObjArray[0]
         });
 
     }catch (error) {
@@ -98,9 +164,11 @@ module.exports.getDoubtsList = async function(req,res){
         // access given to all user types
         let doubtsDocArray = await doubtModel.find();
 
+        let doubtObjArray = await getDeliverableDoubts(doubtsDocArray);
+
         return res.status(200).json({
             status : 'success',
-            doubt_list : doubtsDocArray
+            doubt_list : doubtObjArray
         });
 
     }catch (error) {
@@ -182,11 +250,13 @@ module.exports.taActionHandler = async function(req,res){
 
         taDoc.save();
         doubtDoc.save();
+
+        let doubtObjArray = await getDeliverableDoubts([doubtDoc]);
         
         return res.status(200).json({
             status : 'success',
             message : `TA action ${req.params.taAction} performed on Doubt`,
-            doubt_detail : doubtDoc.toJSON()
+            doubt_detail : doubtObjArray[0]
         });
 
     }catch (error) {
