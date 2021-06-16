@@ -10,6 +10,15 @@ import {withRouter} from 'react-router-dom';
 // importing styles
 import '../../styles/teacherDashboard.css';
 
+const doubtSummaryHeaders = {'doubts_asked' : 'Doubts Asked','doubts_resolved' : 'Doubts Resolved','doubts_escalated' : 'Doubts Escalated','avg_doubt_resolution_time' : 'Avg. Doubt Resolution Time'};
+
+const taDoubtSummaryHeaders = {
+    "doubt_accept_count": "Doubts Accepted",
+    "doubt_resolve_count": "Doubts Resolved",
+    "doubt_escalated_count": "Doubts Escalated",
+    "avg_doubt_activity_time": "Avg. Doubt Activity Time"
+}
+
 class TeacherDashboard extends React.Component{
 
     constructor(props){
@@ -47,7 +56,7 @@ class TeacherDashboard extends React.Component{
     }
 
     render(){
-    
+        let dashboardDetails = this.state.dashboard_details;
         return (
             <div className="teacher-dashboard-container">
 
@@ -63,34 +72,89 @@ class TeacherDashboard extends React.Component{
                     
                 </div>
 
-                <div className="doubt-dashboard-container">
-                    <div className="doubt-dashboard-wrapper">
-                        <div className="data-box"></div>
-                        <div className="data-box"></div>
-                        <div className="data-box"></div>
-                        <div className="data-box"></div>
-                    </div>
-                </div>
+                {(()=>{
 
-                <div className="ta-dashboard-container">
+                    if(dashboardDetails){
+                     
+                        return (
+                            <div>
+                                <div className="doubt-dashboard-container">
+                                    <div className="doubt-dashboard-wrapper">
 
-                    <div className="header-wrapper">
+                                        {(()=>{
+                                            
+                                            let dataBox = [];
+                                            for(let dataKey in doubtSummaryHeaders){
+                                                let data = dashboardDetails[dataKey];
+                                                if(dataKey === 'avg_doubt_resolution_time'){
+                                                    data =  `${parseInt(data/60)} min.`;
+                                                }
+                                                dataBox.push(
+                                                    <div className="data-box" key={dataKey}>
+                                                        <div className="summary-data">{data}</div>
+                                                        <div className="summary-header">{doubtSummaryHeaders[dataKey]}</div>
+                                                    </div>
+                                                );
+                                            }
+                                            return dataBox;
+                                        })()}
+                                        
+                                    </div>
+                                </div>
 
-                        <div className="component-header">
-                            <span>TA's Report</span>
-                        </div>
+                                <div className="ta-dashboard-container">
 
-                        <div className="ta-list-wrapper">
+                                    <div className="header-wrapper">
 
-                            <div className="ta-summary-data">ta detaiks 1</div>
-                            <div className="ta-summary-data">ta detaiks 1</div>
-                            <div className="ta-summary-data">ta detaiks 1</div>
+                                        <div className="component-header">
+                                            <span>TA's Report</span>
+                                        </div>
 
-                        </div>
+                                        <div className="ta-list-wrapper">
 
-                    </div>
+                                            {(()=>{
+                                                let taSummaryElements = [];
+                                                let id=0;
+                                                for(let taObj of dashboardDetails.ta_summary_list){
+                                                    taSummaryElements.push(
+                                                        <div className="ta-summary-row" key={`${taObj.name}-${id}`}>
+                                                            <div className="ta-name">{taObj.name}</div>
+                                                            <div className="ta-summary-row-detail">
+                                                                {(()=>{
+                                                                    let taDoubtSummaryEle = [],data;
 
-                </div>
+                                                                    for(let dataKey in taDoubtSummaryHeaders){
+                                                                        data = taObj[dataKey];
+                                                                        if(dataKey === 'avg_doubt_activity_time'){
+                                                                            data =  `${parseInt(data/60)} min.`;
+                                                                        }
+                                                                        taDoubtSummaryEle.push(
+                                                                            <div className="ta-summary-data" key={dataKey}>{`${taDoubtSummaryHeaders[dataKey]} : ${data}`}</div>
+                                                                        );
+
+                                                                    }
+
+                                                                    return taDoubtSummaryEle;
+                                                                })()}
+                            
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                    id++;
+                                                }
+
+                                                return taSummaryElements;
+                                            })()}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        );
+                    }
+                })()}
 
             </div>
         );
