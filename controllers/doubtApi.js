@@ -2,6 +2,7 @@ const {studentModel,taModel,doubtModel,teacherModel} = require('../models/export
 const validTaActionsSet = new Set(['accept','resolve','escalate']);
 const timeZone = "Asia/Kolkata";
 const moment = require('moment-timezone');
+const { $where } = require('../models/studentModel');
 
 async function getDeliverableDoubts(doubtDocArray){
     let userIdToUserDetailsObj = {},userDoc;
@@ -213,8 +214,17 @@ module.exports.taActionHandler = async function(req,res){
             });
         }
         let taDoc = await taModel.findById(req.params.taId);
+
+        let taDoubtsDoc = await doubtModel.find({recent_ta_id : req.params.taId});
+        let taUnresolvedDoubtDoc = null;
+        for(let doubtDoc of taDoubtsDoc){
+            if(doubtDoc.resolve_timestamp === 0){
+                taUnresolvedDoubtDoc = doubtDoc;
+                break;
+            }
+        }
         
-        if(req.params.taAction === 'accept' && (doubtDoc.recent_ta_id==='' || doubtDoc.recent_ta_id===req.params.taId) && doubtDoc.resolve_timestamp===0){
+        if(req.params.taAction === 'accept' && doubtDoc.recent_ta_id==='' && taUnresolvedDoubtDoc===null && doubtDoc.resolve_timestamp===0){
             // ta accept action is valid
             taDoc.doubt_accept_count += 1;
             doubtDoc.recent_ta_id = req.params.taId;

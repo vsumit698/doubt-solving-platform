@@ -151,13 +151,16 @@ class App extends Component {
         notification.success({message : 'Logout successfully'});
     }
 
-    loadCurrDoubt(doubtDetail){
+    loadCurrDoubt(doubtDetail,loadPath){
         this.setState({curr_doubt : doubtDetail});
-        this.props.history.push('/ta/resolve-doubt');
+        if(loadPath){
+            this.props.history.push('/ta/resolve-doubt');
+        }
     }
 
-    removeCurrDoubt(){
-
+    escalateCurrDoubt(doubtDetail){
+        this.setState({curr_doubt : doubtDetail});
+        this.props.history.push('/ta/home');
     }
 
     render () {
@@ -198,9 +201,9 @@ class App extends Component {
 
                   <Route  path='/student/raise-doubt' exact render={()=>{return <StudentDoubtRaise userId={this.state.user_id} handleUserLogout={()=>{this.handleUserLogout();}} />}}></Route>
 
-                  <Route  path='/ta/home' exact render={()=>{return <TaDoubtList userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} loadCurrDoubt={(doubtDetail)=>{this.loadCurrDoubt(doubtDetail);}} />}}></Route>
+                  <Route  path='/ta/home' exact render={()=>{return <TaDoubtList userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} loadCurrDoubt={(doubtDetail,loadPath)=>{this.loadCurrDoubt(doubtDetail,loadPath);}} />}}></Route>
 
-                  <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} removeCurrDoubt={(doubtDetail)=>{this.removeCurrDoubt(doubtDetail);}} />}}></Route>
+                  <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} escalateCurrDoubt={(doubtDetail)=>{this.escalateCurrDoubt(doubtDetail);}} loadCurrDoubt={(doubtDetail, loadPath)=>{this.loadCurrDoubt(doubtDetail,loadPath);}} />}}></Route>
 
                   <Route  path='/teacher/home' exact render={()=>{return <TeacherDashboard />}}></Route>
                   

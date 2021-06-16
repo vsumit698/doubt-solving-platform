@@ -33,9 +33,11 @@ class TaDoubtList extends React.Component{
             if(response.status === 'success'){
                 let unresolveDoubtList = [];
                 for(let doubtObj of response.doubt_list){
-                    if(!doubtObj.resolve_timestamp){
+                    if(!doubtObj.resolve_timestamp && doubtObj.recent_ta_id===''){
                         doubtObj.doubt_accept_status = false;
                         unresolveDoubtList.push(doubtObj);
+                    }else if(!doubtObj.resolve_timestamp && doubtObj.recent_ta_id===this.props.userId){
+                        this.props.loadCurrDoubt(doubtObj,false);
                     }
                 }
                 this.setState({unresolve_doubt_list : unresolveDoubtList});
@@ -86,7 +88,7 @@ class TaDoubtList extends React.Component{
                             newDoubtList[doubtId].doubt_accept_status = false;
 
                             // loading current doubt details to app component
-                            this.props.loadCurrDoubt(response.doubt_detail);
+                            this.props.loadCurrDoubt(response.doubt_detail,true);
 
                             return {unresolve_doubt_list : newDoubtList};
 

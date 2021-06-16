@@ -22,7 +22,51 @@ class TaSolveDoubt extends React.Component{
         };
     }
 
-    handleTaActionOnDoubt(){
+    setActionStatus(action,status){
+        if(action === 'resolve'){
+            this.setState({doubt_resolve_status : status});
+        }else if(action === 'escalate'){
+            this.setState({doubt_resolve_status : status});
+        } 
+    }
+
+    handleTaActionOnDoubt(action){
+        console.log(action);
+        let resolveContent = '';
+        if(action === 'resolve'){
+            resolveContent = this.state.resolve_content;
+        }
+
+        this.setActionStatus(action,true);
+
+        taActionOnDoubt(this.props.currDoubt._id,this.props.userId,action,resolveContent).then((response)=>{
+
+            this.setActionStatus(action,false);
+
+            if(response.status === 'unauthorized'){
+                this.props.handleUserLogout();
+                return;
+            }
+
+            if(response.status === 'success'){
+
+                notification.success({message : response.message});
+                if(action === 'resolve'){
+                    this.props.loadCurrDoubt(response.doubt_detail);
+                }else if(action === 'escalate'){
+                    this.props.escalateCurrDoubt(null);
+                }
+
+            }else{
+
+                notification.warn({message : response.message});
+
+            }
+            
+        }).catch((err)=>{
+            notification.error({message : err});
+            this.setActionStatus(action,false);
+        });
 
     }
 
@@ -56,8 +100,8 @@ class TaSolveDoubt extends React.Component{
                                         <div>Answer</div>
                                         <div className="ta-solve-doubt-action-container">
                                             <Input.TextArea rows="3" value={this.state.resolve_content} onChange={(e)=>{this.updateValue(e.target.value)}}/>
-                                            <Button className="resolve-btn" type="primary" onClick={()=>{this.handleTaActionOnDoubt('resolve')}}>Answer</Button>
-                                            <Button  className="accept-btn" type="dashed" onClick={()=>{this.handleTaActionOnDoubt('escalate')}}>Escalate</Button>
+                                            <Button className="resolve-btn" type="primary" onClick={()=>{this.handleTaActionOnDoubt('resolve')}} loading={this.state.doubt_resolve_status}>Answer</Button>
+                                            <Button  className="accept-btn" type="dashed" onClick={()=>{this.handleTaActionOnDoubt('escalate')}} loading={this.state.doubt_escalate_status}>Escalate</Button>
                                         </div>
                                         
                                     </div>
