@@ -319,6 +319,7 @@ module.exports.getTeacherDashboardData = async function(req,res){
         
         for(let taDoc of taDocArray){
             dashboardDetails.ta_summary_list.push({
+                name : taDoc.name,
                 doubt_accept_count : taDoc.doubt_accept_count,
                 doubt_resolve_count : taDoc.doubt_resolve_count,
                 doubt_escalated_count : taDoc.doubt_escalated_count,

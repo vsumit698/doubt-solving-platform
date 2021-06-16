@@ -206,7 +206,7 @@ class App extends Component {
 
                   <Route  path='/ta/resolve-doubt' exact render={()=>{return <TaSolveDoubt userId={this.state.user_id} currDoubt={this.state.curr_doubt} handleUserLogout={()=>{this.handleUserLogout();}} escalateCurrDoubt={(doubtDetail)=>{this.escalateCurrDoubt(doubtDetail);}} loadCurrDoubt={(doubtDetail, loadPath)=>{this.loadCurrDoubt(doubtDetail,loadPath);}} />}}></Route>
 
-                  <Route  path='/teacher/home' exact render={()=>{return <TeacherDashboard />}}></Route>
+                  <Route  path='/teacher/home' exact render={()=>{return <TeacherDashboard handleUserLogout={()=>{this.handleUserLogout();}} />}}></Route>
                   
                   <Route path='/' render={()=>{return <PathNotFound/> }}></Route>
                 </Switch>

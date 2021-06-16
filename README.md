@@ -174,6 +174,32 @@ Required API's for supporting soubt solving platform
     5. GET "/doubt-solving/api/v1/doubt/teacher-dashboard" → For getting Teacher dashboard summary (secured by JWT-Authentication)
 
       * This route is accessible to user type -> teacher
+      * Sample Response
+        {
+          "status": "success",
+          "dashboard_details": {
+            "doubts_asked": 3,
+            "doubts_resolved": 2,
+            "doubts_escalated": 2,
+            "avg_doubt_resolution_time": 241,
+            "ta_summary_list": [
+              {
+                  "name": "sumit verma (TA)",
+                  "doubt_accept_count": 18,
+                  "doubt_resolve_count": 2,
+                  "doubt_escalated_count": 4,
+                  "avg_doubt_activity_time": 25.5
+              },
+              {
+                  "name": "sunita",
+                  "doubt_accept_count": 0,
+                  "doubt_resolve_count": 0,
+                  "doubt_escalated_count": 0,
+                  "avg_doubt_activity_time": 0
+              }
+            ]
+          }
+        }
 
 ## Installation Guide :
 

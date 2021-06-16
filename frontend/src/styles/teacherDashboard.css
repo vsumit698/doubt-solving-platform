@@ -1,0 +1,57 @@
+.teacher-dashboard-container{
+  width : 80%;
+  margin: 20px auto;
+  border: 1px solid black;
+}
+.teacher-dashboard-container .header-wrapper{
+  width: 100%;
+  padding: 20px;
+  border: 1px solid black;
+}
+.teacher-dashboard-container .local-header{
+  font-size: 30px !important;
+  border: 1px solid red;
+}
+
+.teacher-dashboard-container .doubt-dashboard-container{
+  width : 100%;
+  padding: 20px;
+  margin : 0 auto;
+  border: 1px solid red;
+}
+
+.teacher-dashboard-container .doubt-dashboard-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid red;
+}
+
+.teacher-dashboard-container .data-box{
+  width: 200px;
+  height : 200px;
+  border: 1px solid green;
+}
+
+/* ta summary styles */
+
+.teacher-dashboard-container .ta-dashboard-container{
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.teacher-dashboard-container .ta-list-wrapper{
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.teacher-dashboard-container .ta-summary-data{
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid rgb(238, 238, 238);
+  background-color: rgb(243, 243, 243);
+}

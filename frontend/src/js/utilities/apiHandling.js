@@ -169,4 +169,31 @@ const taActionOnDoubt = async(doubtId,taId,action,resolveContent)=>{
   }
 };
 
-export {registerUser, loginUser, getDoubtList, raiseDoubt, addCommentOnDoubt,taActionOnDoubt};
+const getTeacherDashboardData = async()=>{
+  try{
+    
+    let response = await fetch(`${apiBasePath}/doubt-solving/api/v1/doubt/teacher-dashboard`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : `bearer ${localStorage.getItem('dsp_access_token')}`
+      }
+    });
+
+    if(response.status === 401){
+      // unauthorized request
+      return {
+        status : 'unauthorized'
+      };
+    }
+
+    let responseJson = await response.json();
+    return responseJson;
+
+  }catch(error){
+    throw new Error(error);
+  }
+};
+
+export {registerUser, loginUser, getDoubtList, raiseDoubt, addCommentOnDoubt,taActionOnDoubt,getTeacherDashboardData};
