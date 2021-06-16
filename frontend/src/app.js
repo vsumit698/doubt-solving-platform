@@ -152,6 +152,7 @@ class App extends Component {
     }
 
     loadCurrDoubt(doubtDetail,loadPath){
+        console.log('doubt detail ->',doubtDetail);
         this.setState({curr_doubt : doubtDetail});
         if(loadPath){
             this.props.history.push('/ta/resolve-doubt');

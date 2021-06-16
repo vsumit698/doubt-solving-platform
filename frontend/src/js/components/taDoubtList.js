@@ -17,7 +17,8 @@ class TaDoubtList extends React.Component{
         super(props);
         this.state = {
             unresolve_doubt_list : null,
-            doubt_list_loading : false
+            doubt_list_loading : false,
+            is_doubt_accepted : false
         };
     }
     
@@ -31,16 +32,18 @@ class TaDoubtList extends React.Component{
                 return;
             }
             if(response.status === 'success'){
-                let unresolveDoubtList = [];
+                let unresolveDoubtList = [],isDoubtAccepted=false;
                 for(let doubtObj of response.doubt_list){
                     if(!doubtObj.resolve_timestamp && doubtObj.recent_ta_id===''){
                         doubtObj.doubt_accept_status = false;
                         unresolveDoubtList.push(doubtObj);
                     }else if(!doubtObj.resolve_timestamp && doubtObj.recent_ta_id===this.props.userId){
+                        // ta has accepted which is yet not escalated and not resolved as well
+                        isDoubtAccepted = true;
                         this.props.loadCurrDoubt(doubtObj,false);
                     }
                 }
-                this.setState({unresolve_doubt_list : unresolveDoubtList});
+                this.setState({unresolve_doubt_list : unresolveDoubtList, is_doubt_accepted : isDoubtAccepted});
             }else{
                 notification.warn({message : 'Failed to Load Doubts'});
             }
@@ -64,7 +67,7 @@ class TaDoubtList extends React.Component{
 
     doubtAcceptHandler(doubtListId){
         console.log(doubtListId);
-        if(this.props.currDoubt){
+        if(this.state.is_doubt_accepted){
             notification.warn({message : 'TA can only Select One Doubt At a Time'});
         }
         this.setDoubtAcceptStatus(doubtListId,true);
@@ -122,7 +125,7 @@ class TaDoubtList extends React.Component{
                 unresolveDoubtListElements.push(
                     <div className="ta-doubt" key={doubtObj._id}>
                         <div>{doubtObj.title}</div>
-                        <Button type="dashed" disabled={this.props.currDoubt?true:false} className="accept-btn" onClick={()=>{this.doubtAcceptHandler(currIndex);}} loading={doubtObj.doubt_accept_status}>Accept</Button>
+                        <Button type="dashed" disabled={this.state.is_doubt_accepted} className="accept-btn" onClick={()=>{this.doubtAcceptHandler(currIndex);}} loading={doubtObj.doubt_accept_status}>Accept</Button>
                     </div>
                 );
                 index++;
