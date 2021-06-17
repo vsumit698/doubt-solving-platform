@@ -49,7 +49,7 @@ var LoginUser = (props) => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={props.loginLoading}>
           Submit
         </Button>
       </Form.Item>

@@ -50,7 +50,9 @@ class App extends Component {
         this.state = {
             user_type : userType,
             has_access_token : hasAccessToken,
-            user_id : userId
+            user_id : userId,
+            login_loading : false,
+            signup_loading : false
         }
     }
 
@@ -77,6 +79,7 @@ class App extends Component {
 
     handleUserSignup(newUser){
         console.log('new user ->',newUser);
+        this.setState({signup_loading : true});
         registerUser(newUser).then((response)=>{
 
             if(response.status === 'success'){
@@ -89,14 +92,16 @@ class App extends Component {
                 notification.warn({message : response.message});
 
             }
-
+            this.setState({signup_loading : false});
         }).catch((err)=>{
             notification.error({message : err});
+            this.setState({signup_loading : false});
         });
     }
 
     handleUserLogin(user){
         console.log('user ->',user);
+        this.setState({login_loading : true});
         loginUser(user).then((response)=>{
 
             if(response.status === 'success'){
@@ -128,8 +133,11 @@ class App extends Component {
 
             }
 
+            this.setState({login_loading : false});
+
         }).catch((err)=>{
             notification.error({message : err});
+            this.setState({login_loading : false});
         });
     }
     
@@ -194,9 +202,9 @@ class App extends Component {
                 
                 
                 <Switch>
-                  <Route  path='/signup'  exact render={()=>{return <RegisterUser handleUserSignup={(value)=>{this.handleUserSignup(value.user)}} />}}></Route>
+                  <Route  path='/signup'  exact render={()=>{return <RegisterUser signupLoading={this.state.signup_loading} handleUserSignup={(value)=>{this.handleUserSignup(value.user)}} />}}></Route>
                       
-                  <Route  path='/login' exact render={()=>{return <LoginUser handleUserLogin={(value)=>{this.handleUserLogin(value.user)}}/>}}></Route>
+                  <Route  path='/login' exact render={()=>{return <LoginUser loginLoading={this.state.login_loading} handleUserLogin={(value)=>{this.handleUserLogin(value.user)}}/>}}></Route>
 
                   <Route  path='/student/home' exact render={()=>{return <StudentDoubtList userId={this.state.user_id} handleUserLogout={()=>{this.handleUserLogout();}}/>}}></Route>
 

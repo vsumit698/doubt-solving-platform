@@ -53,7 +53,7 @@ var RegisterUser = (props) => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={props.signupLoading}>
           Submit
         </Button>
       </Form.Item>

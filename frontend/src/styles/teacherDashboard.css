@@ -33,6 +33,7 @@
   height : 210px;
   margin : 10px 0;
   border-radius: 20px;
+  background-color: antiquewhite;
   border: 2px solid black;
 }
 .teacher-dashboard-container .summary-data{
