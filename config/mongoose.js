@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.db_host,{ useNewUrlParser: true ,useUnifiedTopology:true });
+const uri = process.env.db_host;
+
+if ( process.env.NODE_ENV == "production"){
+    uri = process.env.DB_HOST;
+}
+
+mongoose.connect(uri, { useNewUrlParser: true ,useUnifiedTopology:true });
 
 const db = mongoose.connection;
 
