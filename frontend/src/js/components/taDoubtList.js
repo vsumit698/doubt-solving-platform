@@ -131,6 +131,8 @@ class TaDoubtList extends React.Component{
                 index++;
             }
         }
+
+        if(unresolveDoubtListElements.length === 0) unresolveDoubtListElements = 'Currently No Doubts Available To Solve';
     
         return (
             <div className="ta-doubt-list-container">
