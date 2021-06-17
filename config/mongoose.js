@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = process.env.db_host;
+let uri = process.env.db_host;
 
 if ( process.env.NODE_ENV == "production"){
     uri = process.env.DB_HOST;
