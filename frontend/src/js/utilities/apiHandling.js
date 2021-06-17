@@ -1,4 +1,6 @@
-const apiBasePath = 'http://127.0.0.1:9000';
+// const apiBasePath = 'http://127.0.0.1:9000'; // only for development enviroment
+
+const apiBasePath = '';
 
 const registerUser = async (userObj)=>{
   try{

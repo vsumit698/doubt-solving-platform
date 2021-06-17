@@ -30,13 +30,29 @@ app.use(function(req, res, next) {
 
 
 app.use('/',require('./routes/doubtSolving'));
- 
-app.listen(process.env.app_server_port,function(error){
+
+if ( process.env.NODE_ENV == "production"){
+
+    app.use(express.static("frontend/build"));
+
+    // const path = require("path");
+
+    // app.get("*", (req, res) => {
+
+    //     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+
+    // })
+
+}
+
+const port = process.env.PORT || process.env.app_server_port;
+
+app.listen(port,function(error){
     if(error) {
         console.log(`Error in running server ${error}`);
         return;
     }
-    console.log(`Server is running on port ${process.env.app_server_port}`);
+    console.log(`Server is running on port ${port}`);
 }); 
 
 module.exports = app;
