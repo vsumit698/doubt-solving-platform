@@ -81,12 +81,13 @@
 .teacher-dashboard-container .ta-summary-row .ta-summary-row-detail{
   margin: 10px 0;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
 }
 .teacher-dashboard-container .ta-summary-row .ta-summary-data{
   padding: 3px;
-  margin: 0 5px;
+  margin: 5px;
   border-radius: 5px;
   border:1px solid black;
 }

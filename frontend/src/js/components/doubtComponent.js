@@ -78,7 +78,7 @@ class DoubtComponent extends React.Component{
                 return (
                 <div className="comment-form">
                     <Input value={this.state.comment_data} onChange={(e)=>{this.updateComment(e.target.value);}} />
-                    <Button type="primary" loading={this.props.doubtObj.comment_creation_status} onClick={()=>{this.props.addCommentHandler(this.props.doubtListId, this.state.comment_data);}}>Comment</Button>
+                    <Button type="primary" disabled={this.state.comment_data?false:true} loading={this.props.doubtObj.comment_creation_status} onClick={()=>{this.props.addCommentHandler(this.props.doubtListId, this.state.comment_data);}}>Comment</Button>
                 </div>
                 );
               }

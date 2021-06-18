@@ -75,7 +75,7 @@ class TaSolveDoubt extends React.Component{
     }
 
     render(){
-    
+        
         return (
             <div className="ta-solve-doubt-container">
 
@@ -96,15 +96,22 @@ class TaSolveDoubt extends React.Component{
                                             doubtObj={{...this.props.currDoubt}} 
                                         />
                                     </div>
-                                    <div className="ta-solve-doubt-answer">
-                                        <div>Answer</div>
-                                        <div className="ta-solve-doubt-action-container">
-                                            <Input.TextArea rows="3" value={this.state.resolve_content} onChange={(e)=>{this.updateValue(e.target.value)}}/>
-                                            <Button className="resolve-btn" type="primary" onClick={()=>{this.handleTaActionOnDoubt('resolve')}} loading={this.state.doubt_resolve_status}>Answer</Button>
-                                            <Button  className="accept-btn" type="dashed" onClick={()=>{this.handleTaActionOnDoubt('escalate')}} loading={this.state.doubt_escalate_status}>Escalate</Button>
-                                        </div>
-                                        
-                                    </div>
+                                    {(()=>{
+                                        let isDoubtResolved = this.props.currDoubt.resolve_timestamp>0?true:false;
+                                        let isAnswerExist = this.state.resolve_content.length?true:false;
+
+                                        return (
+                                            <div className="ta-solve-doubt-answer">
+                                                <div>Answer</div>
+                                                <div className="ta-solve-doubt-action-container">
+                                                    <Input.TextArea rows="3" disabled={isDoubtResolved} value={this.state.resolve_content} onChange={(e)=>{this.updateValue(e.target.value)}}/>
+                                                    <Button disabled={!isAnswerExist || isDoubtResolved} className="resolve-btn" type="primary" onClick={()=>{this.handleTaActionOnDoubt('resolve')}} loading={this.state.doubt_resolve_status}>Answer</Button>
+                                                    <Button disabled={isDoubtResolved} className="accept-btn" type="dashed" onClick={()=>{this.handleTaActionOnDoubt('escalate')}} loading={this.state.doubt_escalate_status}>Escalate</Button>
+                                                </div>
+                                                
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                             </React.Fragment>
                         );
