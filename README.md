@@ -23,22 +23,8 @@
 
 ## Component Architecture Of Doubt Solving Platform - 
 
-```mermaid
-graph TD
+![Alt component architecture](./frontend/public/component.png?raw=true)
 
-A["App"] --> B["RegisterUser"]
-A --> C["LoginUser"]
-A --> D["StudentDoubtRaise"]
-A --> E["StudentDoubtList"]
-
-A --> F["TaDoubtList"]
-A --> G["TaSolveDoubt"]
-A --> H["TeacherDashboard"]
-
-E --> I["DoubtComponent"]
-G --> J["DoubtComponent"]
-
-```
 ## Backend API calls in Components
 
   1. App Component - 
