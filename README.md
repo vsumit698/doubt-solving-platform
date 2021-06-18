@@ -19,7 +19,7 @@
 * **/student/raise-doubt** For Student To Raise Doubt via student with doubt title, description.
 * **/ta/home** For TA To see all unresolved doubt list, Ta can accept doubt and resolve it.
 * **/ta/resolve-doubt** For TA To solve an accepted doubt.
-* **/teacher/home** To view dashboard data, which includes overall doubts summary & each TA summary as well
+* **/teacher/home** For Teacher To view dashboard data, which includes overall doubts summary & each TA summary as well
 
 ## Component Architecture Of Doubt Solving Platform - 
 
