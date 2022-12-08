@@ -22,6 +22,7 @@
   "scripts": {
     "test": "mocha --timeout 10000",
     "start": "node index.js",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "sumitCoder",
