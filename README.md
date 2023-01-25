@@ -23,7 +23,7 @@
 
 ## Component Architecture Of Doubt Solving Platform - 
 
-![Alt component architecture](./frontend/public/component.png?raw=true)
+![Alt component architecture](https://drive.google.com/file/d/1PeUUy5W8Kfa2mt1XSBRV7cVaXSeDO_Dw/view?usp=share_link)
 
 ## Backend API calls in Components
 
